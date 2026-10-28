@@ -51,8 +51,8 @@ flowchart TD
 ### 2.1 Scope & Hierarchy
 The system is developed and benchmarked on a production-scale dataset derived from multi-city quick-commerce distribution centers:
 * **Unique Store-Product Series:** **2,341** distinct time series.
-* **Product Assortment:** **68** core SKUs across perishable fresh produce, dairy, bakery, and beverages.
-* **Geographical Distribution:** **11** urban dark store fulfillment clusters.
+* **Product Assortment:** **15** Top SKUs across high-velocity fresh produce, dairy, bakery, and beverages.
+* **Geographical Distribution:** **18** urban fulfillment clusters across **868** dark stores.
 * **Total Volume:** **3,370,000+ hourly observation slots** (~140,400 full daily trajectories).
 * **Holdout Validation:** Strictly chronological partition into:
   - **Training Set:** 72,571 14-day sequences.
@@ -71,8 +71,8 @@ Each hourly observation slot contains 14 continuous and engineered features:
 8. `hour_sin` & `hour_cos`: Cyclical diurnal features ($\sin(2\pi h/24)$, $\cos(2\pi h/24)$).
 9. `rolling_sales_mean_3d`: 72-hour moving average sales velocity.
 10. `rolling_stockout_sum_7d`: Cumulative stockout hours observed over the trailing 7 days.
-11. `store_cluster_id`: Categorical index ($0 \dots 10$).
-12. `product_sku_id`: Categorical index ($0 \dots 67$).
+11. `store_cluster_id`: Categorical index ($0 \dots 17$).
+12. `product_sku_id`: Categorical index ($0 \dots 14$).
 
 ### 2.3 High-Performance Ingestion Pipeline
 To eliminate Python `for`-loop bottlenecks when creating 140,000 sliding lookback windows across 2,341 entities, the ingestion layer is implemented in [`src/data_pipeline.py`](file:///home/samyak/code/Labs/BTP_2/hourly_stockout_research/src/data_pipeline.py):
